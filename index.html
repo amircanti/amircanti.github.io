@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudia Lisama - Portal de Estudio Grado 11</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            animation: fadeIn 1s ease;
+        }
+        
+        header h1 {
+            color: #1a2a6c;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            color: #555;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .materias-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .materia-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .materia-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .materia-header {
+            padding: 25px;
+            text-align: center;
+            color: white;
+        }
+        
+        .matematicas { background: linear-gradient(135deg, #ff512f, #dd2476); }
+        .castellano { background: linear-gradient(135deg, #00c9ff, #92fe9d); }
+        .biologia { background: linear-gradient(135deg, #56ab2f, #a8e063); }
+        .fisica { background: linear-gradient(135deg, #7f00ff, #e100ff); }
+        .quimica { background: linear-gradient(135deg, #ff416c, #ff4b2b); }
+        .filosofia { background: linear-gradient(135deg, #4b6cb7, #182848); }
+        
+        .materia-header i {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .materia-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .materia-content {
+            padding: 25px;
+        }
+        
+        .materia-content h3 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .temas-list {
+            list-style-type: none;
+            margin-bottom: 20px;
+        }
+        
+        .temas-list li {
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            transition: background 0.3s, transform 0.3s;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .temas-list li:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        
+        .temas-list li i {
+            margin-right: 10px;
+            color: #1a2a6c;
+        }
+        
+        .prueba-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #1a2a6c;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-top: 15px;
+        }
+        
+        .prueba-btn:hover {
+            background: #0d1b4d;
+            transform: translateY(-3px);
+        }
+        
+        footer {
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        
+        .destacado {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .destacado h2 {
+            color: #1a2a6c;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .calendario {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .evento {
+            background: linear-gradient(135deg, #1a2a6c, #3a5fcd);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            width: 280px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .evento:hover {
+            transform: scale(1.05);
+        }
+        
+        .evento h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow: auto;
+            padding: 20px;
+            animation: fadeIn 0.5s;
+        }
+        
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 80%;
+            max-width: 800px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.3s;
+        }
+        
+        .close-btn:hover {
+            color: #333;
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #1a2a6c, #3a5fcd);
+            color: white;
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+            margin: -30px -30px 20px -30px;
+        }
+        
+        .modal-body {
+            padding: 20px 0;
+        }
+        
+        .formula {
+            background: #f0f5ff;
+            border-left: 4px solid #3a5fcd;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 5px 5px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .video-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .video-option {
+            background: #eef2f7;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+        }
+        
+        .video-option:hover, .video-option.active {
+            background: #1a2a6c;
+            color: white;
+        }
+        
+        .teoria-content {
+            margin-bottom: 30px;
+        }
+        
+        .teoria-content h3 {
+            color: #1a2a6c;
+            margin: 20px 0 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .teoria-content ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        
+        .teoria-content ul li {
+            margin-bottom: 8px;
+        }
+        
+        .ejemplo {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        /* Estilos para la prueba */
+        .prueba-container {
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 15px;
+        }
+        
+        .pregunta {
+            margin-bottom: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        
+        .pregunta-texto {
+            font-weight: bold;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .opcion {
+            margin-bottom: 8px;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .opcion:hover {
+            background: #e9ecef;
+        }
+        
+        .opcion input[type="radio"] {
+            margin-right: 10px;
+        }
+        
+        .terminar-prueba {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: #1a2a6c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        
+        .terminar-prueba:hover {
+            background: #0d1b4d;
+        }
+        
+        .correcta {
+            border: 2px solid #28a745;
+        }
+        
+        .incorrecta {
+            border: 2px solid #dc3545;
+        }
+        
+        .resultado-prueba {
+            text-align: center;
+            padding: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 20px;
+            border-radius: 8px;
+            background: #e9f7ef;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @media (max-width: 768px) {
+            .materias-container {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .calendario {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+            
+            .prueba-container {
+                max-height: 60vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-graduation-cap"></i> Estudia Lisama - Grado 11</h1>
+            <p>Tu portal de estudio completo para todas las materias de grado 11. Encuentra recursos, temas importantes y herramientas para tu éxito académico.</p>
+        </header>
+        
+        <div class="destacado">
+            <h2>Próximos Eventos Académicos</h2>
+            <div class="calendario">
+                <div class="evento">
+                    <h3><i class="fas fa-calendar-alt"></i> Exámenes Parciales</h3>
+                    <p>15 - 20 de Octubre</p>
+                    <p>Todas las materias</p>
+                </div>
+                <div class="evento">
+                    <h3><i class="fas fa-flask"></i> Feria de Ciencias</h3>
+                    <p>5 de Noviembre</p>
+                    <p>Biología, Física y Química</p>
+                </div>
+                <div class="evento">
+                    <h3><i class="fas fa-book"></i> Semana Literaria</h3>
+                    <p>12 - 16 de Noviembre</p>
+                    <p>Castellano y Filosofía</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="materias-container">
+            <!-- Matemáticas -->
+            <div class="materia-card">
+                <div class="materia-header matematicas">
+                    <i class="fas fa-calculator"></i>
+                    <h2>Matemáticas</h2>
+                    <p>Álgebra, Cálculo y Geometría</p>
+                </div>
+                <div class="materia-content">
+                    <h3>Temas Importantes</h3>
+                    <ul class="temas-list">
+                        <li data-tema="funciones" data-materia="matematicas">
+                            <span><i class="fas fa-square-root-alt"></i> Funciones y límites</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="calculo" data-materia="matematicas">
+                            <span><i class="fas fa-infinity"></i> Cálculo diferencial e integral</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="geometria" data-materia="matematicas">
+                            <span><i class="fas fa-shapes"></i> Geometría analítica</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="estadistica" data-materia="matematicas">
+                            <span><i class="fas fa-chart-line"></i> Estadística y probabilidad</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="algebra" data-materia="matematicas">
+                            <span><i class="fas fa-project-diagram"></i> Álgebra lineal</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                    </ul>
+                    <button class="prueba-btn" data-materia="matematicas">Realizar Prueba de Matemáticas</button>
+                </div>
+            </div>
+            
+            <!-- Castellano -->
+            <div class="materia-card">
+                <div class="materia-header castellano">
+                    <i class="fas fa-book"></i>
+                    <h2>Castellano</h2>
+                    <p>Literatura, Gramática y Expresión</p>
+                </div>
+                <div class="materia-content">
+                    <h3>Temas Importantes</h3>
+                    <ul class="temas-list">
+                        <li data-tema="literatura" data-materia="castellano">
+                            <span><i class="fas fa-book-open"></i> Literatura hispanoamericana</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="generos" data-materia="castellano">
+                            <span><i class="fas fa-feather-alt"></i> Géneros literarios</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="redaccion" data-materia="castellano">
+                            <span><i class="fas fa-pen-fancy"></i> Redacción y ortografía</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="discurso" data-materia="castellano">
+                            <span><i class="fas fa-comments"></i> Análisis del discurso</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="obras" data-materia="castellano">
+                            <span><i class="fas fa-theater-masks"></i> Obras literarias clásicas</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                    </ul>
+                    <button class="prueba-btn" data-materia="castellano">Realizar Prueba de Castellano</button>
+                </div>
+            </div>
+            
+            <!-- Biología -->
+            <div class="materia-card">
+                <div class="materia-header biologia">
+                    <i class="fas fa-dna"></i>
+                    <h2>Biología</h2>
+                    <p>Ciencias de la vida y el medio ambiente</p>
+                </div>
+                <div class="materia-content">
+                    <h3>Temas Importantes</h3>
+                    <ul class="temas-list">
+                        <li data-tema="genetica" data-materia="biologia">
+                            <span><i class="fas fa-microscope"></i> Genética y herencia</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="ecologia" data-materia="biologia">
+                            <span><i class="fas fa-leaf"></i> Ecología y sostenibilidad</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="nervioso" data-materia="biologia">
+                            <span><i class="fas fa-brain"></i> Sistema nervioso</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="evolucion" data-materia="biologia">
+                            <span><i class="fas fa-seedling"></i> Evolución y biodiversidad</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="microbiologia" data-materia="biologia">
+                            <span><i class="fas fa-virus"></i> Microbiología</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                    </ul>
+                    <button class="prueba-btn" data-materia="biologia">Realizar Prueba de Biología</button>
+                </div>
+            </div>
+            
+            <!-- Física -->
+            <div class="materia-card">
+                <div class="materia-header fisica">
+                    <i class="fas fa-atom"></i>
+                    <h2>Física</h2>
+                    <p>Leyes del universo y la materia</p>
+                </div>
+                <div class="materia-content">
+                    <h3>Temas Importantes</h3>
+                    <ul class="temas-list">
+                        <li data-tema="electromagnetismo" data-materia="fisica">
+                            <span><i class="fas fa-bolt"></i> Electromagnetismo</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="campos" data-materia="fisica">
+                            <span><i class="fas fa-magnet"></i> Campos y fuerzas</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="cuantica" data-materia="fisica">
+                            <span><i class="fas fa-satellite"></i> Mecánica cuántica</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="termodinamica" data-materia="fisica">
+                            <span><i class="fas fa-wind"></i> Termodinámica</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="cinematica" data-materia="fisica">
+                            <span><i class="fas fa-rocket"></i> Cinemática y dinámica</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                    </ul>
+                    <button class="prueba-btn" data-materia="fisica">Realizar Prueba de Física</button>
+                </div>
+            </div>
+            
+            <!-- Química -->
+            <div class="materia-card">
+                <div class="materia-header quimica">
+                    <i class="fas fa-flask"></i>
+                    <h2>Química</h2>
+                    <p>Composición y transformación de la materia</p>
+                </div>
+                <div class="materia-content">
+                    <h3>Temas Importantes</h3>
+                    <ul class="temas-list">
+                        <li data-tema="reacciones" data-materia="quimica">
+                            <span><i class="fas fa-vial"></i> Reacciones químicas</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="atomica" data-materia="quimica">
+                            <span><i class="fas fa-atom"></i> Estructura atómica</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="estequiometria" data-materia="quimica">
+                            <span><i class="fas fa-balance-scale"></i> Estequiometría</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="termoquimica" data-materia="quimica">
+                            <span><i class="fas fa-fire"></i> Termoquímica</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="organica" data-materia="quimica">
+                            <span><i class="fas fa-tint"></i> Química orgánica</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                    </ul>
+                    <button class="prueba-btn" data-materia="quimica">Realizar Prueba de Química</button>
+                </div>
+            </div>
+            
+            <!-- Filosofía -->
+            <div class="materia-card">
+                <div class="materia-header filosofia">
+                    <i class="fas fa-brain"></i>
+                    <h2>Filosofía</h2>
+                    <p>Pensamiento crítico y reflexión</p>
+                </div>
+                <div class="materia-content">
+                    <h3>Temas Importantes</h3>
+                    <ul class="temas-list">
+                        <li data-tema="etica" data-materia="filosofia">
+                            <span><i class="fas fa-question"></i> Ética y moral</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="moderna" data-materia="filosofia">
+                            <span><i class="fas fa-globe-europe"></i> Filosofía moderna</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="logica" data-materia="filosofia">
+                            <span><i class="fas fa-scale-balanced"></i> Lógica y argumentación</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="historia" data-materia="filosofia">
+                            <span><i class="fas fa-history"></i> Historia de la filosofía</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                        <li data-tema="ser" data-materia="filosofia">
+                            <span><i class="fas fa-user"></i> Filosofía del ser</span>
+                            <i class="fas fa-book-open"></i>
+                        </li>
+                    </ul>
+                    <button class="prueba-btn" data-materia="filosofia">Realizar Prueba de Filosofía</button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 EstudiaLisama - Portal de Estudio para Grado 11</p>
+            <p>Recursos educativos para matemáticas, castellano, biología, física, química y filosofía</p>
+        </footer>
+    </div>
+    
+    <!-- Modal para contenido detallado -->
+    <div id="temaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalTitulo">Cálculo Diferencial e Integral</h2>
+                <p id="modalSubtitulo">Matemáticas - Grado 11</p>
+            </div>
+            <div class="modal-body">
+                <div class="teoria-content" id="teoriaContent">
+                    <!-- Contenido teórico se cargará aquí -->
+                </div>
+                
+                <div id="videoSection">
+                    <h3>Videos Educativos</h3>
+                    <p>Selecciona un video para verlo:</p>
+                    
+                    <div class="video-selector" id="videoSelector">
+                        <!-- Las opciones de video se cargarán aquí -->
+                    </div>
+                    
+                    <div class="video-container">
+                        <iframe id="videoPlayer" src="" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para pruebas -->
+    <div id="pruebaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-header">
+                <h2 id="pruebaTitulo">Prueba de Matemáticas</h2>
+                <p>Responde las siguientes preguntas</p>
+            </div>
+            <div class="modal-body">
+                <div class="prueba-container" id="pruebaContainer">
+                    <!-- Las preguntas de la prueba se cargarán aquí -->
+                </div>
+                <button class="terminar-prueba" id="terminarPrueba">Terminar Prueba</button>
+                <div id="resultadoPrueba" class="resultado-prueba"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Datos para todos los temas de todas las materias
+        const temasData = {
+            // Matemáticas
+            funciones: {
+                titulo: "Funciones y Límites",
+                materia: "Matemáticas",
+                teoria: `
+                    <h3>Conceptos Fundamentales</h3>
+                    <p>Las funciones matemáticas son relaciones entre conjuntos que asignan a cada elemento de un conjunto inicial (dominio) exactamente un elemento de un conjunto final (codominio).</p>
+                    
+                    <h3>Tipos de Funciones</h3>
+                    <ul>
+                        <li><strong>Lineales:</strong> f(x) = mx + b</li>
+                        <li><strong>Cuadráticas:</strong> f(x) = ax² + bx + c</li>
+                        <li><strong>Exponenciales:</strong> f(x) = aˣ</li>
+                        <li><strong>Logarítmicas:</strong> f(x) = logₐ(x)</li>
+                    </ul>
+                    
+                    <h3>Límites</h3>
+                    <p>El límite de una función describe el comportamiento de la función cuando la variable independiente se acerca a un valor específico:</p>
+                    <div class="formula">lim<sub>x→a</sub> f(x) = L</div>
+                    
+                    <h3>Propiedades de los Límites</h3>
+                    <div class="formula">lim<sub>x→a</sub> [f(x) + g(x)] = lim f(x) + lim g(x)</div>
+                    <div class="formula">lim<sub>x→a</sub> [f(x) · g(x)] = lim f(x) · lim g(x)</div>
+                    <div class="formula">lim<sub>x→a</sub> [f(x)/g(x)] = lim f(x) / lim g(x) (si lim g(x) ≠ 0)</div>
+                `,
+                videos: [
+                    { titulo: "Introducción a funciones", id: "3YkEe8LgD6c" },
+                    { titulo: "Tipos de funciones", id: "HtGx3i0aYio" },
+                    { titulo: "Concepto de límite", id: "q8yH8L7F5k8" },
+                    { titulo: "Cálculo de límites", id: "4qyKX3Ux8Q0" }
+                ]
+            },
+            calculo: {
+                titulo: "Cálculo Diferencial e Integral",
+                materia: "Matemáticas",
+                teoria: `
+                    <h3>Conceptos Fundamentales</h3>
+                    <p>El cálculo diferencial e integral es una rama de las matemáticas que estudia las tasas de cambio (derivadas) y la acumulación de cantidades (integrales). Es fundamental en ciencias e ingeniería.</p>
+                    
+                    <h3>Derivadas</h3>
+                    <p>La derivada representa la tasa de cambio instantánea de una función en un punto dado. Se define como:</p>
+                    <div class="formula">f'(x) = lim<sub>h→0</sub> [f(x+h) - f(x)] / h</div>
+                    
+                    <h3>Integrales</h3>
+                    <p>La integral representa el área bajo la curva de una función. La integral definida se calcula como:</p>
+                    <div class="formula">∫<sub>a</sub><sup>b</sup> f(x) dx = F(b) - F(a)</div>
+                    <p>Donde F(x) es la antiderivada de f(x).</p>
+                    
+                    <h3>Aplicaciones</h3>
+                    <ul>
+                        <li>Cálculo de velocidades y aceleraciones</li>
+                        <li>Optimización de funciones</li>
+                        <li>Cálculo de áreas y volúmenes</li>
+                        <li>Modelado de crecimiento poblacional</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Introducción al cálculo", id: "ys6spSbjJhY" },
+                    { titulo: "Derivadas paso a paso", id: "ANXe-uj2dJ4" },
+                    { titulo: "Integrales definidas", id: "rtAo4OjJq8M" },
+                    { titulo: "Aplicaciones prácticas", id: "1jFZ0T_4q6c" }
+                ]
+            },
+            geometria: {
+                titulo: "Geometría Analítica",
+                materia: "Matemáticas",
+                teoria: `
+                    <h3>Conceptos Básicos</h3>
+                    <p>La geometría analítica estudia las figuras geométricas mediante un sistema de coordenadas y métodos algebraicos.</p>
+                    
+                    <h3>Ecuación de la Recta</h3>
+                    <p>Forma general: Ax + By + C = 0</p>
+                    <p>Forma pendiente-intercepto: y = mx + b</p>
+                    
+                    <h3>Circunferencia</h3>
+                    <div class="formula">(x - h)² + (y - k)² = r²</div>
+                    <p>Donde (h, k) es el centro y r es el radio.</p>
+                    
+                    <h3>Elipse</h3>
+                    <div class="formula">(x - h)²/a² + (y - k)²/b² = 1</div>
+                `,
+                videos: [
+                    { titulo: "Geometría analítica básica", id: "i0zDxJgRkUo" },
+                    { titulo: "Ecuación de la recta", id: "sQzVJ4WUc8I" },
+                    { titulo: "Circunferencia y elipse", id: "d3zZQq5QJcM" },
+                    { titulo: "Problemas resueltos", id: "tG9p8G4b7Z4" }
+                ]
+            },
+            estadistica: {
+                titulo: "Estadística y Probabilidad",
+                materia: "Matemáticas",
+                teoria: `
+                    <h3>Conceptos Básicos</h3>
+                    <p>La estadística es la ciencia que recopila, organiza, analiza e interpreta datos para tomar decisiones.</p>
+                    
+                    <h3>Medidas de Tendencia Central</h3>
+                    <ul>
+                        <li><strong>Media:</strong> Suma de valores dividida por el número de elementos</li>
+                        <li><strong>Mediana:</strong> Valor central en un conjunto ordenado</li>
+                        <li><strong>Moda:</strong> Valor que aparece con mayor frecuencia</li>
+                    </ul>
+                    
+                    <h3>Probabilidad</h3>
+                    <p>La probabilidad mide la posibilidad de que ocurra un evento:</p>
+                    <div class="formula">P(A) = Número de casos favorables / Número de casos posibles</div>
+                    
+                    <h3>Distribuciones de Probabilidad</h3>
+                    <ul>
+                        <li>Distribución binomial</li>
+                        <li>Distribución normal</li>
+                        <li>Distribución de Poisson</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Estadística descriptiva", id: "szXbuO3bVRk" },
+                    { titulo: "Conceptos de probabilidad", id: "K5ZTN0q-z7Y" },
+                    { titulo: "Distribución normal", id: "HvDqbzu0i0E" },
+                    { titulo: "Problemas resueltos", id: "mI3fOJk7JkE" }
+                ]
+            },
+            algebra: {
+                titulo: "Álgebra Lineal",
+                materia: "Matemáticas",
+                teoria: `
+                    <h3>Matrices</h3>
+                    <p>Una matriz es un arreglo rectangular de números organizados en filas y columnas.</p>
+                    
+                    <h3>Operaciones con Matrices</h3>
+                    <ul>
+                        <li>Suma y resta de matrices</li>
+                        <li>Multiplicación de matrices</li>
+                        <li>Determinante de una matriz</li>
+                        <li>Matriz inversa</li>
+                    </ul>
+                    
+                    <h3>Sistemas de Ecuaciones Lineales</h3>
+                    <p>Se pueden resolver mediante:</p>
+                    <ul>
+                        <li>Método de eliminación de Gauss</li>
+                        <li>Regla de Cramer</li>
+                        <li>Método de matrices inversas</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Introducción al álgebra lineal", id: "k7RM-ot2NWY" },
+                    { titulo: "Operaciones con matrices", id: "i7Cjq2Xh9UQ" },
+                    { titulo: "Sistemas de ecuaciones", id: "Vq7t8ZfYbXg" },
+                    { titulo: "Aplicaciones prácticas", id: "tY8nSg7VXyg" }
+                ]
+            },
+            
+            // Castellano
+            literatura: {
+                titulo: "Literatura Hispanoamericana",
+                materia: "Castellano",
+                teoria: `
+                    <h3>Periodos Históricos</h3>
+                    <ul>
+                        <li><strong>Época precolombina:</strong> Literatura indígena (Popol Vuh)</li>
+                        <li><strong>Colonial:</strong> Crónicas de Indias, literatura barroca</li>
+                        <li><strong>Siglo XIX:</strong> Romanticismo, Realismo, Modernismo</li>
+                        <li><strong>Siglo XX:</strong> Boom latinoamericano (García Márquez, Cortázar)</li>
+                    </ul>
+                    
+                    <h3>Autores Destacados</h3>
+                    <div class="ejemplo">
+                        <p><strong>Gabriel García Márquez:</strong> Premio Nobel de Literatura 1982, máximo exponente del realismo mágico. Obra cumbre: "Cien años de soledad".</p>
+                        <p><strong>Pablo Neruda:</strong> Poeta chileno, Premio Nobel 1971. Obra: "Veinte poemas de amor y una canción desesperada".</p>
+                    </div>
+                    
+                    <h3>Características del Boom Latinoamericano</h3>
+                    <ul>
+                        <li>Experimentación con el tiempo narrativo</li>
+                        <li>Mezcla de realidad y fantasía</li>
+                        <li>Cuestionamiento de la identidad latinoamericana</li>
+                        <li>Uso de técnicas narrativas innovadoras</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Historia literatura hispanoamericana", id: "Q1m_0Xo8UO4" },
+                    { titulo: "El Boom Latinoamericano", id: "2X1k5gZbLcQ" },
+                    { titulo: "Análisis de Cien años de soledad", id: "s2Q0tGY6x6M" },
+                    { titulo: "Pablo Neruda y su obra", id: "Uc6Q2pKJd2s" }
+                ]
+            },
+            generos: {
+                titulo: "Géneros Literarios",
+                materia: "Castellano",
+                teoria: `
+                    <h3>Los Tres Grandes Géneros</h3>
+                    <ul>
+                        <li><strong>Lírico:</strong> Expresa sentimientos (poesía, oda, elegía)</li>
+                        <li><strong>Épico/Narrativo:</strong> Relata sucesos (novela, cuento, epopeya)</li>
+                        <li><strong>Dramático:</strong> Representa conflictos (tragedia, comedia, drama)</li>
+                    </ul>
+                    
+                    <h3>Subgéneros Narrativos</h3>
+                    <div class="ejemplo">
+                        <p><strong>Novela:</strong> Narración extensa con trama compleja y múltiples personajes.</p>
+                        <p><strong>Cuento:</strong> Narración breve con un solo conflicto y pocos personajes.</p>
+                        <p><strong>Leyenda:</strong> Relato tradicional que mezcla elementos reales y fantásticos.</p>
+                    </div>
+                    
+                    <h3>Elementos de la Narrativa</h3>
+                    <ul>
+                        <li>Argumento o trama</li>
+                        <li>Personajes (protagonista, antagonista)</li>
+                        <li>Narrador (primera o tercera persona)</li>
+                        <li>Espacio y tiempo</li>
+                        <li>Tema y mensaje</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Géneros literarios explicados", id: "w5XeS0tF7rY" },
+                    { titulo: "Análisis de la narrativa", id: "Vl5H8Q0fZ5E" },
+                    { titulo: "La poesía y sus formas", id: "r6Rf7kXqY9Q" },
+                    { titulo: "El teatro como género", id: "Qb1X6h7vK3I" }
+                ]
+            },
+            redaccion: {
+                titulo: "Redacción y Ortografía",
+                materia: "Castellano",
+                teoria: `
+                    <h3>Reglas Ortográficas Esenciales</h3>
+                    <ul>
+                        <li>Uso de b/v: Se escribe b después de m y antes de consonante</li>
+                        <li>Uso de g/j: Se escribe j antes de e, i excepto en palabras con "gen"</li>
+                        <li>Uso de h: Palabras que comienzan con hue-, hie-, herm-</li>
+                    </ul>
+                    
+                    <h3>Estructura de un Texto</h3>
+                    <div class="ejemplo">
+                        <p><strong>Introducción:</strong> Presenta el tema y la tesis</p>
+                        <p><strong>Desarrollo:</strong> Argumentos y ejemplos que sostienen la tesis</p>
+                        <p><strong>Conclusión:</strong> Síntesis y cierre del texto</p>
+                    </div>
+                    
+                    <h3>Conectores Textuales</h3>
+                    <ul>
+                        <li>Aditivos: además, también, asimismo</li>
+                        <li>Contrastivos: sin embargo, no obstante, por el contrario</li>
+                        <li>Causales: porque, puesto que, ya que</li>
+                        <li>Consecutivos: por tanto, así que, en consecuencia</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Reglas ortográficas básicas", id: "fK6kK0jJQ6g" },
+                    { titulo: "Cómo redactar un ensayo", id: "uW9WwLxY0FQ" },
+                    { titulo: "Conectores textuales", id: "VzX8vFQ2H1k" },
+                    { titulo: "Errores comunes", id: "sF8R0NwW9fI" }
+                ]
+            },
+            discurso: {
+                titulo: "Análisis del Discurso",
+                materia: "Castellano",
+                teoria: `
+                    <h3>Elementos del Discurso</h3>
+                    <ul>
+                        <li><strong>Emisor:</strong> Quien produce el mensaje</li>
+                        <li><strong>Receptor:</strong> Quien recibe el mensaje</li>
+                        <li><strong>Mensaje:</strong> Contenido transmitido</li>
+                        <li><strong>Código:</strong> Sistema de signos utilizado</li>
+                        <li><strong>Canal:</strong> Medio de transmisión</li>
+                    </ul>
+                    
+                    <h3>Tipos de Discurso</h3>
+                    <div class="ejemplo">
+                        <p><strong>Narrativo:</strong> Relata sucesos en un tiempo determinado</p>
+                        <p><strong>Descriptivo:</strong> Presenta características de personas, objetos o lugares</p>
+                        <p><strong>Argumentativo:</strong> Defiende una opinión mediante razones</p>
+                    </div>
+                    
+                    <h3>Recursos Retóricos</h3>
+                    <ul>
+                        <li>Metáfora: Identificación de dos términos</li>
+                        <li>Hipérbole: Exageración</li>
+                        <li>Ironía: Expresar lo contrario de lo que se piensa</li>
+                        <li>Anáfora: Repetición de palabras al inicio de frases</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Elementos del discurso", id: "gYvQ8Jz0Xr8" },
+                    { titulo: "Tipos de discurso", id: "dL4X6yV7c8k" },
+                    { titulo: "Recursos retóricos", id: "Wv6sT3jHd_k" },
+                    { titulo: "Análisis de discursos famosos", id: "bq1p6XgJf3Q" }
+                ]
+            },
+            obras: {
+                titulo: "Obras Literarias Clásicas",
+                materia: "Castellano",
+                teoria: `
+                    <h3>Obras Fundamentales</h3>
+                    <ul>
+                        <li><strong>Don Quijote de la Mancha:</strong> Miguel de Cervantes (1605)</li>
+                        <li><strong>Cien años de soledad:</strong> Gabriel García Márquez (1967)</li>
+                        <li><strong>La ciudad y los perros:</strong> Mario Vargas Llosa (1963)</li>
+                        <li><strong>Rayuela:</strong> Julio Cortázar (1963)</li>
+                        <li><strong>Ficciones:</strong> Jorge Luis Borges (1944)</li>
+                    </ul>
+                    
+                    <h3>Análisis de Don Quijote</h3>
+                    <div class="ejemplo">
+                        <p>Considerada la primera novela moderna, narra las aventuras de Alonso Quijano, un hidalgo que enloquece por leer libros de caballerías y decide convertirse en caballero andante.</p>
+                        <p>Temas principales: la locura, la realidad vs ficción, el idealismo, la crítica social.</p>
+                    </div>
+                    
+                    <h3>Características del Realismo Mágico</h3>
+                    <ul>
+                        <li>Inserción de elementos mágicos en contextos realistas</li>
+                        <li>Distorsión del tiempo (circular, fragmentado)</li>
+                        <li>Presencia de lo mitológico y folclórico</li>
+                        <li>Narración desde múltiples perspectivas</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Análisis de Don Quijote", id: "c2vB7oWvB4A" },
+                    { titulo: "Realismo mágico", id: "s2Q0tGY6x6M" },
+                    { titulo: "Obras fundamentales", id: "9RjVQwQzMqI" },
+                    { titulo: "Literatura contemporánea", id: "r9o5pC2S0qk" }
+                ]
+            },
+            
+            // Biología
+            genetica: {
+                titulo: "Genética y Herencia",
+                materia: "Biología",
+                teoria: `
+                    <h3>Conceptos Fundamentales</h3>
+                    <ul>
+                        <li><strong>Gen:</strong> Unidad básica de la herencia</li>
+                        <li><strong>Cromosoma:</strong> Estructura que contiene los genes</li>
+                        <li><strong>ADN:</strong> Ácido desoxirribonucleico, molécula portadora de información genética</li>
+                    </ul>
+                    
+                    <h3>Leyes de Mendel</h3>
+                    <div class="ejemplo">
+                        <p><strong>1ª Ley (Uniformidad):</strong> Al cruzar dos razas puras, todos los descendientes son iguales.</p>
+                        <p><strong>2ª Ley (Segregación):</strong> Los alelos se separan durante la formación de gametos.</p>
+                        <p><strong>3ª Ley (Transmisión independiente):</strong> Los genes para diferentes rasgos se heredan independientemente.</p>
+                    </div>
+                    
+                    <h3>Tipos de Herencia</h3>
+                    <ul>
+                        <li>Dominante-recesiva</li>
+                        <li>Codominancia</li>
+                        <li>Herencia ligada al sexo</li>
+                        <li>Herencia poligénica</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Introducción a la genética", id: "CBezq1fFUEA" },
+                    { titulo: "Leyes de Mendel", id: "4vXqSXH2fdI" },
+                    { titulo: "ADN y replicación", id: "yqESR7E4b_8" },
+                    { titulo: "Herencia y enfermedades", id: "8s4he3wLgkM" }
+                ]
+            },
+            ecologia: {
+                titulo: "Ecología y Sostenibilidad",
+                materia: "Biología",
+                teoria: `
+                    <h3>Niveles de Organización Ecológica</h3>
+                    <ul>
+                        <li>Individuo → Población → Comunidad → Ecosistema → Bioma → Biosfera</li>
+                    </ul>
+                    
+                    <h3>Relaciones Intraespecíficas</h3>
+                    <div class="ejemplo">
+                        <p><strong>Competencia:</strong> Lucha por recursos limitados</p>
+                        <p><strong>Cooperación:</strong> Asociación para beneficio mutuo</p>
+                        <p><strong>Colonias:</strong> Grupos de individuos unidos físicamente</p>
+                    </div>
+                    
+                    <h3>Ciclos Biogeoquímicos</h3>
+                    <ul>
+                        <li>Ciclo del agua</li>
+                        <li>Ciclo del carbono</li>
+                        <li>Ciclo del nitrógeno</li>
+                        <li>Ciclo del fósforo</li>
+                    </ul>
+                    
+                    <h3>Desarrollo Sostenible</h3>
+                    <p>Satisfacer las necesidades del presente sin comprometer la capacidad de las futuras generaciones para satisfacer sus propias necesidades.</p>
+                `,
+                videos: [
+                    { titulo: "Ecología básica", id: "GlnFylwdYH4" },
+                    { titulo: "Ciclos biogeoquímicos", id: "H4kXA2h0a1Q" },
+                    { titulo: "Desarrollo sostenible", id: "V0ZQpgORoKQ" },
+                    { titulo: "Problemas ambientales", id: "b6LuP_WjK3c" }
+                ]
+            },
+            nervioso: {
+                titulo: "Sistema Nervioso",
+                materia: "Biología",
+                teoria: `
+                    <h3>Partes del Sistema Nervioso</h3>
+                    <ul>
+                        <li><strong>Sistema Nervioso Central (SNC):</strong> Encéfalo y médula espinal</li>
+                        <li><strong>Sistema Nervioso Periférico (SNP):</strong> Nervios que conectan SNC con el resto del cuerpo</li>
+                    </ul>
+                    
+                    <h3>Neuronas</h3>
+                    <p>Células especializadas en transmitir información mediante impulsos nerviosos. Partes:</p>
+                    <div class="ejemplo">
+                        <p><strong>Dendritas:</strong> Reciben señales</p>
+                        <p><strong>Cuerpo celular:</strong> Procesa información</p>
+                        <p><strong>Axón:</strong> Transmite señales a otras neuronas</p>
+                    </div>
+                    
+                    <h3>Sinapsis</h3>
+                    <p>Proceso de comunicación entre neuronas donde se liberan neurotransmisores que transmiten la señal a la siguiente neurona.</p>
+                    
+                    <h3>Funciones del Sistema Nervioso</h3>
+                    <ul>
+                        <li>Recibir información sensorial</li>
+                        <li>Procesar e integrar información</li>
+                        <li>Generar respuestas motoras</li>
+                        <li>Regular funciones internas</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Anatomía del sistema nervioso", id: "qPix_X-9t7E" },
+                    { titulo: "Funcionamiento de las neuronas", id: "6qS83wD29PY" },
+                    { titulo: "Sinapsis neuronal", id: "WhowH0kb7n0" },
+                    { titulo: "Enfermedades neurológicas", id: "sjyI4CmBOA0" }
+                ]
+            },
+            evolucion: {
+                titulo: "Evolución y Biodiversidad",
+                materia: "Biología",
+                teoria: `
+                    <h3>Teorías de la Evolución</h3>
+                    <ul>
+                        <li><strong>Lamarckismo:</strong> Herencia de caracteres adquiridos</li>
+                        <li><strong>Darwinismo:</strong> Selección natural como mecanismo evolutivo</li>
+                        <li><strong>Neodarwinismo:</strong> Combina genética con selección natural</li>
+                    </ul>
+                    
+                    <h3>Pruebas de la Evolución</h3>
+                    <div class="ejemplo">
+                        <p><strong>Paleontológicas:</strong> Registro fósil</p>
+                        <p><strong>Anatomía comparada:</strong> Órganos homólogos y análogos</p>
+                        <p><strong>Embriología comparada:</strong> Similitudes en desarrollo embrionario</p>
+                        <p><strong>Bioquímicas:</strong> Similitudes en ADN y proteínas</p>
+                    </div>
+                    
+                    <h3>Mecanismos Evolutivos</h3>
+                    <ul>
+                        <li>Mutación</li>
+                        <li>Deriva genética</li>
+                        <li>Flujo genético</li>
+                        <li>Selección natural</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Teoría de la evolución", id: "GhHOjC4oxh8" },
+                    { titulo: "Selección natural", id: "0SCjhI86grU" },
+                    { titulo: "Pruebas de la evolución", id: "lIEoO5KdPvg" },
+                    { titulo: "Biodiversidad", id: "GK_vRtHJZu4" }
+                ]
+            },
+            microbiologia: {
+                titulo: "Microbiología",
+                materia: "Biología",
+                teoria: `
+                    <h3>Tipos de Microorganismos</h3>
+                    <ul>
+                        <li><strong>Bacterias:</strong> Procariotas unicelulares</li>
+                        <li><strong>Virus:</strong> Entidades acelulares que necesitan huéspedes</li>
+                        <li><strong>Hongos:</strong> Eucariotas heterótrofos</li>
+                        <li><strong>Protozoos:</strong> Eucariotas unicelulares</li>
+                        <li><strong>Algas:</strong> Eucariotas fotosintéticos</li>
+                    </ul>
+                    
+                    <h3>Importancia de los Microorganismos</h3>
+                    <div class="ejemplo">
+                        <p><strong>Beneficiosos:</strong> Fermentación, descomposición, fijación de nitrógeno, probióticos</p>
+                        <p><strong>Perjudiciales:</strong> Enfermedades infecciosas, deterioro de alimentos</p>
+                    </div>
+                    
+                    <h3>Enfermedades Microbianas</h3>
+                    <ul>
+                        <li>Bacterianas: Tuberculosis, cólera, neumonía</li>
+                        <li>Virales: COVID-19, influenza, VIH/SIDA</li>
+                        <li>Fúngicas: Candidiasis, aspergilosis</li>
+                        <li>Protozoarias: Malaria, enfermedad de Chagas</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Introducción a la microbiología", id: "prYgBq4Y_8w" },
+                    { titulo: "Microorganismos beneficiosos", id: "w8oHjX8YgGk" },
+                    { titulo: "Enfermedades infecciosas", id: "7D0eIsuZCnw" },
+                    { titulo: "Sistema inmunológico", id: "PSRJfaAYkW4" }
+                ]
+            },
+            
+            // Física
+            electromagnetismo: {
+                titulo: "Electromagnetismo",
+                materia: "Física",
+                teoria: `
+                    <h3>Conceptos Básicos</h3>
+                    <p>El electromagnetismo es la rama de la física que estudia los fenómenos eléctricos y magnéticos y su relación.</p>
+                    
+                    <h3>Ley de Coulomb</h3>
+                    <p>Describe la fuerza entre dos cargas eléctricas:</p>
+                    <div class="formula">F = k * (q₁ * q₂) / r²</div>
+                    <p>Donde k es la constante de Coulomb (9×10⁹ N·m²/C²).</p>
+                    
+                    <h3>Ley de Faraday</h3>
+                    <p>Establece que un campo magnético cambiante induce una fuerza electromotriz:</p>
+                    <div class="formula">ε = -dΦ<sub>B</sub>/dt</div>
+                    
+                    <h3>Ecuaciones de Maxwell</h3>
+                    <p>Son las cuatro ecuaciones fundamentales que describen el electromagnetismo:</p>
+                    <ol>
+                        <li>Ley de Gauss para la electricidad</li>
+                        <li>Ley de Gauss para el magnetismo</li>
+                        <li>Ley de Faraday</li>
+                        <li>Ley de Ampère-Maxwell</li>
+                    </ol>
+                `,
+                videos: [
+                    { titulo: "Introducción al electromagnetismo", id: "XoVW7CRNA5Q" },
+                    { titulo: "Ley de Coulomb", id: "rYjo774UpHI" },
+                    { titulo: "Inducción electromagnética", id: "yEMsFdF1kRE" },
+                    { titulo: "Ecuaciones de Maxwell", id: "Y5c6xeewZcY" }
+                ]
+            },
+            campos: {
+                titulo: "Campos y Fuerzas",
+                materia: "Física",
+                teoria: `
+                    <h3>Campos de Fuerza</h3>
+                    <p>Regiones del espacio donde un objeto experimenta una fuerza:</p>
+                    <ul>
+                        <li><strong>Campo gravitatorio:</strong> Fuerza de atracción entre masas</li>
+                        <li><strong>Campo eléctrico:</strong> Fuerza sobre cargas eléctricas</li>
+                        <li><strong>Campo magnético:</strong> Fuerza sobre cargas en movimiento</li>
+                    </ul>
+                    
+                    <h3>Ley de Gravitación Universal</h3>
+                    <div class="formula">F = G * (m₁ * m₂) / r²</div>
+                    <p>Donde G es la constante gravitacional (6.674×10⁻¹¹ N·m²/kg²)</p>
+                    
+                    <h3>Campo Eléctrico</h3>
+                    <div class="formula">E = F / q</div>
+                    <p>Donde E es la intensidad del campo, F es la fuerza y q la carga de prueba</p>
+                    
+                    <h3>Líneas de Campo</h3>
+                    <p>Representación visual de los campos:</p>
+                    <ul>
+                        <li>Salen de cargas positivas y entran en negativas</li>
+                        <li>Salen de polos norte magnéticos y entran en sur</li>
+                        <li>Nunca se cruzan entre sí</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Campos gravitatorios", id: "8h7uZ9CQpRg" },
+                    { titulo: "Campos eléctricos", id: "mD3vWQ2Cfm8" },
+                    { titulo: "Campos magnéticos", id: "s94suB5uLWw" },
+                    { titulo: "Líneas de campo", id: "k1S9l7b6Kd0" }
+                ]
+            },
+            cuantica: {
+                titulo: "Mecánica Cuántica",
+                materia: "Física",
+                teoria: `
+                    <h3>Principios Fundamentales</h3>
+                    <ul>
+                        <li><strong>Cuantización:</strong> La energía se transmite en paquetes discretos (cuantos)</li>
+                        <li><strong>Dualidad onda-partícula:</strong> La materia tiene propiedades tanto de onda como de partícula</li>
+                        <li><strong>Principio de incertidumbre:</strong> Es imposible conocer simultáneamente posición y velocidad exactas de una partícula</li>
+                    </ul>
+                    
+                    <h3>Ecuación de Schrödinger</h3>
+                    <p>Describe la evolución temporal de una partícula cuántica:</p>
+                    <div class="formula">iℏ ∂Ψ/∂t = Ĥ Ψ</div>
+                    <p>Donde Ψ es la función de onda, Ĥ es el operador hamiltoniano, ℏ es la constante de Planck reducida.</p>
+                    
+                    <h3>Aplicaciones</h3>
+                    <div class="ejemplo">
+                        <p><strong>Electrónica:</strong> Transistores, microprocesadores</p>
+                        <p><strong>Medicina:</strong> Tomografía por emisión de positrones</p>
+                        <p><strong>Computación:</strong> Computación cuántica</p>
+                    </div>
+                `,
+                videos: [
+                    { titulo: "Introducción a mecánica cuántica", id: "Usu9xZedPng" },
+                    { titulo: "Dualidad onda-partícula", id: "Q_h4IoPJXZw" },
+                    { titulo: "Principio de incertidumbre", id: "KT7xJ0tjB4A" },
+                    { titulo: "Aplicaciones cuánticas", id: "Jh8uZUvSp6Q" }
+                ]
+            },
+            termodinamica: {
+                titulo: "Termodinámica",
+                materia: "Física",
+                teoria: `
+                    <h3>Leyes de la Termodinámica</h3>
+                    <ol>
+                        <li><strong>Ley cero:</strong> Si dos sistemas están en equilibrio térmico con un tercero, están en equilibrio entre sí</li>
+                        <li><strong>Primera ley:</strong> Conservación de la energía: ΔU = Q - W</li>
+                        <li><strong>Segunda ley:</strong> La entropía total de un sistema aislado siempre aumenta</li>
+                        <li><strong>Tercera ley:</strong> La entropía de un cristal perfecto en cero absoluto es cero</li>
+                    </ol>
+                    
+                    <h3>Sistemas Termodinámicos</h3>
+                    <ul>
+                        <li><strong>Abierto:</strong> Intercambia materia y energía</li>
+                        <li><strong>Cerrado:</strong> Intercambia energía pero no materia</li>
+                        <li><strong>Aislado:</strong> No intercambia ni materia ni energía</li>
+                    </ul>
+                    
+                    <h3>Procesos Termodinámicos</h3>
+                    <ul>
+                        <li>Isotérmico: Temperatura constante</li>
+                        <li>Isobárico: Presión constante</li>
+                        <li>Isocórico: Volumen constante</li>
+                        <li>Adiabático: Sin transferencia de calor</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Leyes de la termodinámica", id: "8N1BxHgsoOw" },
+                    { titulo: "Primera ley explicada", id: "Xb05CaG7TsQ" },
+                    { titulo: "Entropía y segunda ley", id: "ZsY4WcQOrfk" },
+                    { titulo: "Aplicaciones prácticas", id: "8d8tY8vH_6I" }
+                ]
+            },
+            cinematica: {
+                titulo: "Cinemática y Dinámica",
+                materia: "Física",
+                teoria: `
+                    <h3>Cinemática</h3>
+                    <p>Estudio del movimiento sin considerar sus causas. Conceptos clave:</p>
+                    <ul>
+                        <li>Posición, desplazamiento, distancia</li>
+                        <li>Velocidad (media e instantánea)</li>
+                        <li>Aceleración</li>
+                    </ul>
+                    
+                    <h3>Ecuaciones del MRUV</h3>
+                    <div class="formula">v = v₀ + a·t</div>
+                    <div class="formula">x = x₀ + v₀·t + ½a·t²</div>
+                    <div class="formula">v² = v₀² + 2a·Δx</div>
+                    
+                    <h3>Dinámica</h3>
+                    <p>Estudio de las causas del movimiento. Leyes de Newton:</p>
+                    <div class="ejemplo">
+                        <p><strong>1ª Ley (Inercia):</strong> Un cuerpo permanece en reposo o MRU a menos que una fuerza neta actúe sobre él.</p>
+                        <p><strong>2ª Ley:</strong> F = m·a</p>
+                        <p><strong>3ª Ley (Acción-Reacción):</strong> A toda acción corresponde una reacción igual y opuesta.</p>
+                    </div>
+                `,
+                videos: [
+                    { titulo: "Cinemática básica", id: "z3b4d6lE3r4" },
+                    { titulo: "Leyes de Newton", id: "kKKM8Y-u7ds" },
+                    { titulo: "Problemas de movimiento", id: "t1bUJ0eJh5o" },
+                    { titulo: "Aplicaciones dinámicas", id: "qMZvVT1lzso" }
+                ]
+            },
+            
+            // Química
+            reacciones: {
+                titulo: "Reacciones Químicas",
+                materia: "Química",
+                teoria: `
+                    <h3>Tipos de Reacciones</h3>
+                    <p>Las reacciones químicas se clasifican en:</p>
+                    <ul>
+                        <li><strong>Síntesis:</strong> A + B → AB</li>
+                        <li><strong>Descomposición:</strong> AB → A + B</li>
+                        <li><strong>Desplazamiento simple:</strong> A + BC → AC + B</li>
+                        <li><strong>Doble desplazamiento:</strong> AB + CD → AD + CB</li>
+                        <li><strong>Combustión:</strong> Hidrocarburo + O₂ → CO₂ + H₂O</li>
+                    </ul>
+                    
+                    <h3>Balanceo de Ecuaciones</h3>
+                    <p>Para balancear ecuaciones químicas se usan métodos como:</p>
+                    <ul>
+                        <li>Tanteo</li>
+                        <li>Redox</li>
+                        <li>Algebraico</li>
+                    </ul>
+                    
+                    <h3>Ley de Conservación de la Masa</h3>
+                    <p>En toda reacción química, la masa total de los reactivos es igual a la masa total de los productos.</p>
+                `,
+                videos: [
+                    { titulo: "Tipos de reacciones químicas", id: "aMU1RaRuchA" },
+                    { titulo: "Balanceo por tanteo", id: "y1fDnLzJv7E" },
+                    { titulo: "Reacciones redox", id: "O5a3k0bE3d8" },
+                    { titulo: "Estequiometría básica", id: "eNsVaZOzv0E" }
+                ]
+            },
+            atomica: {
+                titulo: "Estructura Atómica",
+                materia: "Química",
+                teoria: `
+                    <h3>Modelos Atómicos</h3>
+                    <ul>
+                        <li><strong>Dalton:</strong> Átomo como esfera indivisible</li>
+                        <li><strong>Thomson:</strong> Modelo del pudín de pasas</li>
+                        <li><strong>Rutherford:</strong> Modelo planetario</li>
+                        <li><strong>Bohr:</strong> Electrones en órbitas cuantizadas</li>
+                        <li><strong>Mecánico cuántico:</strong> Orbitales atómicos</li>
+                    </ul>
+                    
+                    <h3>Partículas Subatómicas</h3>
+                    <div class="ejemplo">
+                        <p><strong>Protón:</strong> Carga positiva, en núcleo</p>
+                        <p><strong>Neutrón:</strong> Sin carga, en núcleo</p>
+                        <p><strong>Electrón:</strong> Carga negativa, en orbitales</p>
+                    </div>
+                    
+                    <h3>Configuración Electrónica</h3>
+                    <p>Distribución de electrones en niveles y subniveles:</p>
+                    <div class="formula">1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ ...</p>
+                    <p>Reglas: Principio de Aufbau, Regla de Hund, Principio de exclusión de Pauli</p>
+                `,
+                videos: [
+                    { titulo: "Evolución de modelos atómicos", id: "x7dO9YgA5cA" },
+                    { titulo: "Partículas subatómicas", id: "NWCJZuQa0Qo" },
+                    { titulo: "Configuración electrónica", id: "J-v9_ieCqJI" },
+                    { titulo: "Tabla periódica", id: "fPnwBITSmgU" }
+                ]
+            },
+            estequiometria: {
+                titulo: "Estequiometría",
+                materia: "Química",
+                teoria: `
+                    <h3>Conceptos Básicos</h3>
+                    <ul>
+                        <li><strong>Mol:</strong> Unidad que contiene 6.022×10²³ partículas</li>
+                        <li><strong>Masa molar:</strong> Masa de un mol de sustancia (g/mol)</li>
+                        <li><strong>Composición porcentual:</strong> Porcentaje en masa de cada elemento en un compuesto</li>
+                    </ul>
+                    
+                    <h3>Cálculos Estequiométricos</h3>
+                    <p>Pasos para resolver problemas:</p>
+                    <ol>
+                        <li>Balancear la ecuación química</li>
+                        <li>Convertir cantidades a moles</li>
+                        <li>Usar relaciones molares de la ecuación balanceada</li>
+                        <li>Convertir moles a unidades requeridas</li>
+                    </ol>
+                    
+                    <h3>Reactivo Limitante</h3>
+                    <p>Reactivo que se consume primero y determina la cantidad de producto formado.</p>
+                `,
+                videos: [
+                    { titulo: "Concepto de mol", id: "Pft2CASl0M0" },
+                    { titulo: "Cálculos estequiométricos", id: "S6UQX7ZdkpQ" },
+                    { titulo: "Reactivo limitante", id: "njfcrH7C0l0" },
+                    { titulo: "Pureza de reactivos", id: "jISqgA3WMCw" }
+                ]
+            },
+            termoquimica: {
+                titulo: "Termoquímica",
+                materia: "Química",
+                teoria: `
+                    <h3>Tipos de Procesos Térmicos</h3>
+                    <ul>
+                        <li><strong>Exotérmico:</strong> Libera calor al entorno (ΔH < 0)</li>
+                        <li><strong>Endotérmico:</strong> Absorbe calor del entorno (ΔH > 0)</li>
+                    </ul>
+                    
+                    <h3>Entalpía (H)</h3>
+                    <p>Contenido calorífico de un sistema a presión constante. Cambio de entalpía (ΔH) mide el calor intercambiado.</p>
+                    
+                    <h3>Ley de Hess</h3>
+                    <p>El cambio de entalpía en una reacción química es el mismo si ocurre en una o varias etapas.</p>
+                    <div class="formula">ΔH<sub>reacción</sub> = Σ ΔH<sub>f</sub> productos - Σ ΔH<sub>f</sub> reactivos</div>
+                    
+                    <h3>Entalpías de Formación</h3>
+                    <p>Cambio de entalpía cuando se forma 1 mol de compuesto a partir de sus elementos en estado estándar.</p>
+                `,
+                videos: [
+                    { titulo: "Reacciones exo y endotérmicas", id: "Y6OZt0l2W7Y" },
+                    { titulo: "Concepto de entalpía", id: "PK_Gr7E9hT0" },
+                    { titulo: "Ley de Hess", id: "8bCL8TQ5Ko0" },
+                    { titulo: "Cálculos termoquímicos", id: "u566Z4H9iVk" }
+                ]
+            },
+            organica: {
+                titulo: "Química Orgánica",
+                materia: "Química",
+                teoria: `
+                    <h3>Compuestos Orgánicos</h3>
+                    <p>Compuestos basados en carbono, con excepción de los carbonatos, cianuros y óxidos de carbono.</p>
+                    
+                    <h3>Hidrocarburos</h3>
+                    <ul>
+                        <li><strong>Alcanos:</strong> Enlaces simples (CnH₂n₊₂)</li>
+                        <li><strong>Alquenos:</strong> Dobles enlaces (CnH₂n)</li>
+                        <li><strong>Alquinos:</strong> Triples enlaces (CnH₂n₋₂)</li>
+                        <li><strong>Aromáticos:</strong> Anillos bencénicos</li>
+                    </ul>
+                    
+                    <h3>Grupos Funcionales</h3>
+                    <div class="ejemplo">
+                        <p><strong>Alcoholes:</strong> -OH (etanol: CH₃CH₂OH)</p>
+                        <p><strong>Ácidos carboxílicos:</strong> -COOH (ácido acético: CH₃COOH)</p>
+                        <p><strong>Aminas:</strong> -NH₂ (metilamina: CH₃NH₂)</p>
+                    </div>
+                    
+                    <h3>Isomería</h3>
+                    <p>Compuestos con misma fórmula molecular pero diferente estructura:</p>
+                    <ul>
+                        <li>Isomería estructural (de cadena, posición, función)</li>
+                        <li>Estereoisomería (geométrica, óptica)</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Introducción a química orgánica", id: "jFvBktvbOI4" },
+                    { titulo: "Hidrocarburos y nomenclatura", id: "dFf7Wg0Tbqc" },
+                    { titulo: "Grupos funcionales", id: "7Y5XTtCbXj4" },
+                    { titulo: "Isomería y estereoquímica", id: "dQHtXx-9i4k" }
+                ]
+            },
+            
+            // Filosofía
+            etica: {
+                titulo: "Ética y Moral",
+                materia: "Filosofía",
+                teoria: `
+                    <h3>Conceptos Fundamentales</h3>
+                    <div class="ejemplo">
+                        <p><strong>Ética:</strong> Estudio filosófico de la moral, reflexión sobre el bien y el mal.</p>
+                        <p><strong>Moral:</strong> Conjunto de normas y valores de una sociedad o grupo.</p>
+                    </div>
+                    
+                    <h3>Teorías Éticas</h3>
+                    <ul>
+                        <li><strong>Deontología (Kant):</strong> Ética basada en el deber</li>
+                        <li><strong>Utilitarismo (Bentham, Mill):</strong> Máxima felicidad para el mayor número</li>
+                        <li><strong>Ética de la virtud (Aristóteles):</strong> Desarrollo del carácter moral</li>
+                    </ul>
+                    
+                    <h3>Dilemas Éticos</h3>
+                    <p>Situaciones donde hay que elegir entre opciones que parecen igualmente válidas pero contradictorias:</p>
+                    <ul>
+                        <li>El dilema del tranvía</li>
+                        <li>El velero de Dudley y Stephens</li>
+                        <li>El velo de la ignorancia (Rawls)</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Ética vs moral", id: "F7v9tFjZf7w" },
+                    { titulo: "Teorías éticas principales", id: "P3Nq1cC7t8M" },
+                    { titulo: "Dilemas éticos famosos", id: "qFf4rcYh_0M" },
+                    { titulo: "Ética en la vida cotidiana", id: "bUfV7T9dOj4" }
+                ]
+            },
+            moderna: {
+                titulo: "Filosofía Moderna",
+                materia: "Filosofía",
+                teoria: `
+                    <h3>Características Principales</h3>
+                    <ul>
+                        <li>Antropocentrismo (el ser humano como centro)</li>
+                        <li>Racionalismo y empirismo como métodos</li>
+                        <li>Crítica a la tradición y autoridad</li>
+                        <li>Desarrollo del método científico</li>
+                    </ul>
+                    
+                    <h3>Corrientes Principales</h3>
+                    <div class="ejemplo">
+                        <p><strong>Racionalismo (Descartes):</strong> La razón como fuente principal de conocimiento</p>
+                        <p><strong>Empirismo (Locke, Hume):</strong> La experiencia como fuente de conocimiento</p>
+                        <p><strong>Ilustración (Kant, Voltaire):</strong> Razón, libertad y progreso</p>
+                    </div>
+                    
+                    <h3>Filosofía Política Moderna</h3>
+                    <ul>
+                        <li>Contrato social (Hobbes, Locke, Rousseau)</li>
+                        <li>Separación de poderes (Montesquieu)</li>
+                        <li>Derechos humanos universales</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Introducción filosofía moderna", id: "D2F-EqXKd0s" },
+                    { titulo: "Racionalismo vs empirismo", id: "4a6D3yV5T1A" },
+                    { titulo: "Ilustración", id: "b9ZR8Wv1F8c" },
+                    { titulo: "Filosofía política moderna", id: "tBx7sBv5bU4" }
+                ]
+            },
+            logica: {
+                titulo: "Lógica y Argumentación",
+                materia: "Filosofía",
+                teoria: `
+                    <h3>Lógica Proposicional</h3>
+                    <p>Estudio de las relaciones entre proposiciones mediante conectores lógicos:</p>
+                    <ul>
+                        <li>Conjunción (∧): p y q</li>
+                        <li>Disyunción (∨): p o q</li>
+                        <li>Condicional (→): Si p, entonces q</li>
+                        <li>Bicondicional (↔): p si y solo si q</li>
+                        <li>Negación (¬): No p</li>
+                    </ul>
+                    
+                    <h3>Falacias Lógicas</h3>
+                    <div class="ejemplo">
+                        <p><strong>Ad hominem:</strong> Atacar a la persona en lugar de su argumento</p>
+                        <p><strong>Falsa dicotomía:</strong> Presentar solo dos opciones cuando hay más</p>
+                        <p><strong>Pendiente resbaladiza:</strong> Afirmar que una acción llevará a consecuencias extremas sin justificación</p>
+                    </div>
+                    
+                    <h3>Estructura de un Argumento</h3>
+                    <ul>
+                        <li>Premisas: Proposiciones que ofrecen razones</li>
+                        <li>Conclusión: Proposición que se deriva de las premisas</li>
+                        <li>Inferencia: Conexión lógica entre premisas y conclusión</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Lógica básica", id: "QaAQb3kDdYk" },
+                    { titulo: "Conectores lógicos", id: "mBw0kK1gXU8" },
+                    { titulo: "Falacias argumentativas", id: "G5FEzz3D2y8" },
+                    { titulo: "Construcción de argumentos", id: "pEnX7b3j2vs" }
+                ]
+            },
+            historia: {
+                titulo: "Historia de la Filosofía",
+                materia: "Filosofía",
+                teoria: `
+                    <h3>Periodos Históricos</h3>
+                    <ul>
+                        <li><strong>Filosofía Antigua:</strong> Presocráticos, Sócrates, Platón, Aristóteles (siglo VI a.C. - siglo V d.C.)</li>
+                        <li><strong>Filosofía Medieval:</strong> Agustín de Hipona, Tomás de Aquino (siglo V - XV)</li>
+                        <li><strong>Filosofía Moderna:</strong> Descartes, Locke, Kant (siglo XVI - XVIII)</li>
+                        <li><strong>Filosofía Contemporánea:</strong> Marx, Nietzsche, Wittgenstein (siglo XIX - actualidad)</li>
+                    </ul>
+                    
+                    <h3>Principales Escuelas</h3>
+                    <div class="ejemplo">
+                        <p><strong>Idealismo (Platón, Hegel):</strong> La realidad fundamental es mental o espiritual</p>
+                        <p><strong>Empirismo (Locke, Hume):</strong> Todo conocimiento proviene de la experiencia</p>
+                        <p><strong>Existencialismo (Sartre, Camus):</strong> La existencia precede a la esencia</p>
+                    </div>
+                    
+                    <h3>Filósofos Clave</h3>
+                    <ul>
+                        <li>Sócrates: Conócete a ti mismo</li>
+                        <li>Platón: Teoría de las ideas</li>
+                        <li>Aristóteles: Lógica y metafísica</li>
+                        <li>Descartes: Pienso, luego existo</li>
+                        <li>Kant: Crítica de la razón pura</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Historia de la filosofía", id: "s9JhF2eZ0y0" },
+                    { titulo: "Filosofía antigua", id: "0mV3nQXvU0g" },
+                    { titulo: "Filosofía moderna", id: "D2F-EqXKd0s" },
+                    { titulo: "Filosofía contemporánea", id: "1a8l5D6WjFk" }
+                ]
+            },
+            ser: {
+                titulo: "Filosofía del Ser",
+                materia: "Filosofía",
+                teoria: `
+                    <h3>Ontología</h3>
+                    <p>Rama de la filosofía que estudia el ser en cuanto ser, sus propiedades y relaciones.</p>
+                    
+                    <h3>Conceptos Fundamentales</h3>
+                    <ul>
+                        <li><strong>Ser:</strong> Todo lo que existe o puede existir</li>
+                        <li><strong>Esencia:</strong> Lo que hace que algo sea lo que es</li>
+                        <li><strong>Existencia:</strong> El hecho de ser</li>
+                        <li><strong>Sustancia:</strong> Lo que existe en sí mismo y no en otro</li>
+                    </ul>
+                    
+                    <h3>Preguntas Ontológicas Clave</h3>
+                    <div class="ejemplo">
+                        <p><strong>¿Qué es el ser?</strong> (Parménides, Heidegger)</p>
+                        <p><strong>¿Por qué existe algo en lugar de nada?</strong> (Leibniz)</p>
+                        <p><strong>¿Existe Dios?</strong> (Argumentos ontológicos)</p>
+                    </div>
+                    
+                    <h3>Metafísica</h3>
+                    <p>Estudio de la realidad última, más allá de lo físico. Temas principales:</p>
+                    <ul>
+                        <li>Naturaleza del tiempo y espacio</li>
+                        <li>Relación mente-cuerpo</li>
+                        <li>Libre albedrío vs determinismo</li>
+                        <li>Naturaleza de la identidad personal</li>
+                    </ul>
+                `,
+                videos: [
+                    { titulo: "Introducción a la ontología", id: "rFwGSF3lMVQ" },
+                    { titulo: "Ser y existencia", id: "L8hO1nQiRjI" },
+                    { titulo: "Metafísica", id: "zO5u8k8lDnQ" },
+                    { titulo: "Filosofía del ser", id: "Dq0r4YhH4w4" }
+                ]
+            }
+        };
+
+        // Preguntas para las pruebas de cada materia
+        const pruebasData = {
+            matematicas: [
+                {
+                    pregunta: "¿Cuál es la derivada de f(x) = 3x² + 2x - 5?",
+                    opciones: [
+                        "f'(x) = 6x + 2",
+                        "f'(x) = 3x + 2",
+                        "f'(x) = 6x² + 2",
+                        "f'(x) = 3x² + 2"
+                    ],
+                    respuesta: 0
+                },
+                {
+                    pregunta: "¿Cuál es el límite de (x² - 4)/(x - 2) cuando x tiende a 2?",
+                    opciones: ["0", "2", "4", "Indeterminado"],
+                    respuesta: 2
+                },
+                {
+                    pregunta: "¿Qué propiedad tiene una matriz ortogonal?",
+                    opciones: [
+                        "Su determinante es 1",
+                        "Su inversa es igual a su transpuesta",
+                        "Todos sus elementos son positivos",
+                        "Es simétrica"
+                    ],
+                    respuesta: 1
+                },
+                {
+                    pregunta: "En estadística, ¿qué mide la desviación estándar?",
+                    opciones: [
+                        "El valor central de los datos",
+                        "La dispersión de los datos",
+                        "La relación entre variables",
+                        "La probabilidad de un evento"
+                    ],
+                    respuesta: 1
+                },
+                {
+                    pregunta: "¿Cuál es la ecuación de una circunferencia con centro en (2,-3) y radio 4?",
+                    opciones: [
+                        "(x-2)² + (y+3)² = 16",
+                        "(x+2)² + (y-3)² = 16",
+                        "(x-2)² + (y+3)² = 4",
+                        "(x+2)² + (y-3)² = 4"
+                    ],
+                    respuesta: 0
+                }
+            ],
+            castellano: [
+                {
+                    pregunta: "¿Cuál es la figura literaria en 'Tus ojos son dos luceros'?",
+                    opciones: ["Metáfora", "Hipérbole", "Personificación", "Comparación"],
+                    respuesta: 0
+                },
+                {
+                    pregunta: "¿Quién escribió 'Cien años de soledad'?",
+                    opciones: [
+                        "Julio Cortázar",
+                        "Mario Vargas Llosa",
+                        "Gabriel García Márquez",
+                        "Pablo Neruda"
+                    ],
+                    respuesta: 2
+                },
+                {
+                    pregunta: "¿Cuál es el género literario de 'La Odisea' de Homero?",
+                    opciones: ["Lírico", "Dramático", "Épico", "Didáctico"],
+                    respuesta: 2
+                },
+                {
+                    pregunta: "¿Qué conectores indican oposición?",
+                    opciones: [
+                        "Además, también",
+                        "Pero, sin embargo",
+                        "Porque, ya que",
+                        "Entonces, luego"
+                    ],
+                    respuesta: 1
+                },
+                {
+                    pregunta: "¿Cuál es el tiempo narrativo predominante en las novelas?",
+                    opciones: [
+                        "Presente histórico",
+                        "Pretérito perfecto simple",
+                        "Futuro imperfecto",
+                        "Condicional simple"
+                    ],
+                    respuesta: 1
+                }
+            ],
+            biologia: [
+                {
+                    pregunta: "¿Cuál es la unidad básica de la herencia?",
+                    opciones: ["Cromosoma", "Gen", "ADN", "Proteína"],
+                    respuesta: 1
+                },
+                {
+                    pregunta: "¿Qué proceso convierte la energía luminosa en energía química?",
+                    opciones: [
+                        "Respiración celular",
+                        "Fotosíntesis",
+                        "Fermentación",
+                        "Digestión"
+                    ],
+                    respuesta: 1
+                },
+                {
+                    pregunta: "¿Qué científico propuso la teoría de la evolución por selección natural?",
+                    opciones: [
+                        "Gregor Mendel",
+                        "Charles Darwin",
+                        "Louis Pasteur",
+                        "James Watson"
+                    ],
+                    respuesta: 1
+                },
+                {
+                    pregunta: "¿Qué tipo de célula no tiene núcleo definido?",
+                    opciones: ["Eucariota", "Procariota", "Animal", "Vegetal"],
+                    respuesta: 1
+                },
+                {
+                    pregunta: "¿Qué órgano es responsable de filtrar la sangre en el cuerpo humano?",
+                    opciones: ["Hígado", "Pulmón", "Riñón", "Corazón"],
+                    respuesta: 2
+                }
+            ],
+            fisica: [
+                {
+                    pregunta: "¿Qué ley establece que F = m·a?",
+                    opciones: [
+                        "Primera ley de Newton",
+                        "Segunda ley de Newton",
+                        "Tercera ley de Newton",
+                        "Ley de gravitación universal"
+                    ],
+                    respuesta: 1
+                },
+                {
+                    pregunta: "¿Qué unidad mide la fuerza en el sistema internacional?",
+                    opciones: ["Julio", "Vatio", "Newton", "Pascal"],
+                    respuesta: 2
+                },
+                {
+                    pregunta: "¿Qué fenómeno describe la ley de Faraday?",
+                    opciones: [
+                        "Inducción electromagnética",
+                        "Refracción de la luz",
+                        "Conservación de la energía",
+                        "Dilatación térmica"
+                    ],
+                    respuesta: 0
+                },
+                {
+                    pregunta: "¿Qué tipo de energía tiene un objeto en movimiento?",
+                    opciones: [
+                        "Energía potencial",
+                        "Energía cinética",
+                        "Energía térmica",
+                        "Energía química"
+                    ],
+                    respuesta: 1
+                },
+                {
+                    pregunta: "¿Qué partícula subatómica tiene carga positiva?",
+                    opciones: ["Electrón", "Protón", "Neutrón", "Fotón"],
+                    respuesta: 1
+                }
+            ],
+            quimica: [
+                {
+                    pregunta: "¿Qué elemento tiene el símbolo químico 'O'?",
+                    opciones: ["Oro", "Osmio", "Oxígeno", "Oganesón"],
+                    respuesta: 2
+                },
+                {
+                    pregunta: "¿Qué tipo de enlace comparten electrones entre átomos?",
+                    opciones: ["Iónico", "Metálico", "Covalente", "Dipolo-dipolo"],
+                    respuesta: 2
+                },
+                {
+                    pregunta: "¿Qué indica el número atómico de un elemento?",
+                    opciones: [
+                        "Número de neutrones",
+                        "Número de protones",
+                        "Número de electrones",
+                        "Masa atómica"
+                    ],
+                    respuesta: 1
+                },
+                {
+                    pregunta: "¿Qué proceso convierte líquido a gas?",
+                    opciones: ["Fusión", "Sublimación", "Condensación", "Evaporación"],
+                    respuesta: 3
+                },
+                {
+                    pregunta: "¿Qué pH tienen las sustancias ácidas?",
+                    opciones: ["pH = 7", "pH > 7", "pH < 7", "pH = 14"],
+                    respuesta: 2
+                }
+            ],
+            filosofia: [
+                {
+                    pregunta: "¿Qué filósofo dijo 'Pienso, luego existo'?",
+                    opciones: [
+                        "Aristóteles",
+                        "Platón",
+                        "Descartes",
+                        "Kant"
+                    ],
+                    respuesta: 2
+                },
+                {
+                    pregunta: "¿Qué rama de la filosofía estudia el conocimiento?",
+                    opciones: ["Ética", "Estética", "Epistemología", "Ontología"],
+                    respuesta: 2
+                },
+                {
+                    pregunta: "¿Qué teoría ética busca la mayor felicidad para el mayor número?",
+                    opciones: [
+                        "Deontología",
+                        "Utilitarismo",
+                        "Ética de la virtud",
+                        "Relativismo moral"
+                    ],
+                    respuesta: 1
+                },
+                {
+                    pregunta: "¿Qué filósofo propuso la teoría de las ideas?",
+                    opciones: [
+                        "Aristóteles",
+                        "Sócrates",
+                        "Platón",
+                        "Nietzsche"
+                    ],
+                    respuesta: 2
+                },
+                {
+                    pregunta: "¿Qué significa 'a priori' en filosofía?",
+                    opciones: [
+                        "Basado en la experiencia",
+                        "Independiente de la experiencia",
+                        "Después del hecho",
+                        "Por causa y efecto"
+                    ],
+                    respuesta: 1
+                }
+            ]
+        };
+
+        // Funcionalidad para abrir el modal con información detallada
+        document.querySelectorAll('.temas-list li').forEach(item => {
+            item.addEventListener('click', function() {
+                const tema = this.getAttribute('data-tema');
+                const materia = this.getAttribute('data-materia');
+                
+                // Encontrar el tema en los datos
+                const temaData = temasData[tema];
+                if (temaData) {
+                    // Actualizar el modal con la información
+                    document.getElementById('modalTitulo').textContent = temaData.titulo;
+                    document.getElementById('modalSubtitulo').textContent = `${temaData.materia} - Grado 11`;
+                    document.getElementById('teoriaContent').innerHTML = temaData.teoria;
+                    
+                    // Cargar opciones de video
+                    const videoSelector = document.getElementById('videoSelector');
+                    videoSelector.innerHTML = '';
+                    
+                    temaData.videos.forEach((video, index) => {
+                        const videoOption = document.createElement('div');
+                        videoOption.className = 'video-option';
+                        videoOption.textContent = video.titulo;
+                        videoOption.dataset.videoId = video.id;
+                        
+                        // Seleccionar el primer video por defecto
+                        if (index === 0) {
+                            videoOption.classList.add('active');
+                            document.getElementById('videoPlayer').src = `https://www.youtube.com/embed/${video.id}`;
+                        }
+                        
+                        videoOption.addEventListener('click', function() {
+                            // Remover clase activa de todas las opciones
+                            document.querySelectorAll('.video-option').forEach(opt => {
+                                opt.classList.remove('active');
+                            });
+                            
+                            // Agregar clase activa a la opción seleccionada
+                            this.classList.add('active');
+                            
+                            // Cargar el video
+                            document.getElementById('videoPlayer').src = `https://www.youtube.com/embed/${this.dataset.videoId}`;
+                        });
+                        
+                        videoSelector.appendChild(videoOption);
+                    });
+                    
+                    // Mostrar el modal
+                    document.getElementById('temaModal').style.display = 'block';
+                }
+            });
+        });
+
+        // Funcionalidad para abrir pruebas
+        document.querySelectorAll('.prueba-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const materia = this.getAttribute('data-materia');
+                
+                // Actualizar el título de la prueba
+                document.getElementById('pruebaTitulo').textContent = `Prueba de ${materia.charAt(0).toUpperCase() + materia.slice(1)}`;
+                
+                // Cargar las preguntas
+                const pruebaContainer = document.getElementById('pruebaContainer');
+                pruebaContainer.innerHTML = '';
+                document.getElementById('resultadoPrueba').innerHTML = '';
+                
+                pruebasData[materia].forEach((pregunta, index) => {
+                    const preguntaDiv = document.createElement('div');
+                    preguntaDiv.className = 'pregunta';
+                    preguntaDiv.dataset.index = index;
+                    
+                    const preguntaTexto = document.createElement('div');
+                    preguntaTexto.className = 'pregunta-texto';
+                    preguntaTexto.textContent = `${index + 1}. ${pregunta.pregunta}`;
+                    preguntaDiv.appendChild(preguntaTexto);
+                    
+                    pregunta.opciones.forEach((opcion, opcionIndex) => {
+                        const opcionDiv = document.createElement('div');
+                        opcionDiv.className = 'opcion';
+                        
+                        const radio = document.createElement('input');
+                        radio.type = 'radio';
+                        radio.name = `pregunta-${index}`;
+                        radio.value = opcionIndex;
+                        radio.id = `p${index}-o${opcionIndex}`;
+                        
+                        const label = document.createElement('label');
+                        label.htmlFor = `p${index}-o${opcionIndex}`;
+                        label.textContent = opcion;
+                        
+                        opcionDiv.appendChild(radio);
+                        opcionDiv.appendChild(label);
+                        preguntaDiv.appendChild(opcionDiv);
+                    });
+                    
+                    pruebaContainer.appendChild(preguntaDiv);
+                });
+                
+                // Mostrar el modal de prueba
+                document.getElementById('pruebaModal').style.display = 'block';
+            });
+        });
+
+        // Funcionalidad para terminar la prueba
+        document.getElementById('terminarPrueba').addEventListener('click', function() {
+            const materia = document.getElementById('pruebaTitulo').textContent.replace('Prueba de ', '').toLowerCase();
+            const preguntas = document.querySelectorAll('.pregunta');
+            let correctas = 0;
+            
+            preguntas.forEach(pregunta => {
+                const index = parseInt(pregunta.dataset.index);
+                const respuestaCorrecta = pruebasData[materia][index].respuesta;
+                const opciones = pregunta.querySelectorAll('input[type="radio"]');
+                let seleccionada = -1;
+                
+                // Encontrar la opción seleccionada
+                opciones.forEach((opcion, opcionIndex) => {
+                    if (opcion.checked) {
+                        seleccionada = opcionIndex;
+                    }
+                });
+                
+                // Marcar como correcta o incorrecta
+                if (seleccionada === respuestaCorrecta) {
+                    pregunta.classList.add('correcta');
+                    correctas++;
+                } else if (seleccionada !== -1) {
+                    pregunta.classList.add('incorrecta');
+                }
+            });
+            
+            // Mostrar resultado
+            const resultadoDiv = document.getElementById('resultadoPrueba');
+            resultadoDiv.textContent = `Resultado: ${correctas} de ${preguntas.length} correctas (${Math.round((correctas / preguntas.length) * 100)}%)`;
+            
+            // Desplazar hacia el resultado
+            resultadoDiv.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Cerrar modales
+        document.querySelectorAll('.close-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.getElementById('temaModal').style.display = 'none';
+                document.getElementById('pruebaModal').style.display = 'none';
+            });
+        });
+
+        // Cerrar modales al hacer clic fuera del contenido
+        window.addEventListener('click', function(event) {
+            if (event.target === document.getElementById('temaModal')) {
+                document.getElementById('temaModal').style.display = 'none';
+            }
+            if (event.target === document.getElementById('pruebaModal')) {
+                document.getElementById('pruebaModal').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
